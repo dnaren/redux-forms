@@ -4,30 +4,49 @@ import { getFormSyncWarnings, submit } from "redux-form";
 import FieldLevelValidationForm from "./FieldLevelValidationForm";
 import showResults from "./showResults";
 
-let FormContainer = (props) => {
+class FormContainer extends React.PureComponent {
   //const { initialValues, anyWarnings, doSubmit } = props;
-  const { doSubmit } = props;
-  const initialValues = { username: "james bond" };
+  // const { doSubmit } = props;
+  // const initialValues = { username: "james bond" };
   //const isDisabled = anyWarnings && Object.keys(anyWarnings).length > 0;
-  return (
-    <div>
-      <FieldLevelValidationForm
-        initialValues={initialValues}
-        onSubmit={showResults}
-      />
+
+  // getInitialValues() {
+  //   return {};
+  // }
+
+  get initialValues() {
+    const values = Object.assign({}, this.props.inputData);
+    return values;
+  }
+
+  render() {
+    const disableSubmit =
+      this.props.anyWarnings && Object.keys(this.props.anyWarnings).length > 0;
+
+    return (
       <div>
-        <button type="submit" onClick={doSubmit}>
-          Submit
-        </button>
+        <FieldLevelValidationForm
+          initialValues={this.initialValues}
+          onSubmit={showResults}
+        />
+        <div>
+          <button
+            type="submit"
+            disabled={disableSubmit}
+            onClick={this.props.doSubmit}
+          >
+            Submit
+          </button>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 FormContainer = connect(
   (state) => ({
-    //initialValues: { username: "james bond" }
-    //anyWarnings: getFormSyncWarnings("fieldLevelValidation")(state)
+    inputData: { username: "james bond" },
+    anyWarnings: getFormSyncWarnings("fieldLevelValidation")(state)
   }),
   (dispatch) => ({
     doSubmit: () => dispatch(submit("fieldLevelValidation"))
