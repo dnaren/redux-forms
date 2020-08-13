@@ -1,0 +1,16 @@
+{
+  "name": "redux-form-field-level-validation-forked",
+  "version": "1.0.0",
+  "description": "Field-level validation in Redux Form.",
+  "keywords": [],
+  "main": "index.js",
+  "dependencies": {
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "react-json-view": "1.19.1",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "5.2.0",
+    "redux": "^4.0.1",
+    "redux-form": "^8.1.0"
+  }
+}
